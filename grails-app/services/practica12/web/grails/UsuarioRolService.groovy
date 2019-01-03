@@ -13,6 +13,6 @@ interface UsuarioRolService {
 
     void delete(Serializable id)
 
-    UsuarioRol save(UsuarioRol userRole)
+    UsuarioRol save(UsuarioRol usuarioRol)
 
 }

@@ -8,7 +8,7 @@ import grails.validation.ValidationException
 class DepController {
 
     ContactoService contactoService
-    DepService departamentoService
+    DepService depService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -22,17 +22,18 @@ class DepController {
 
 
         if(!userAuth.toString() == "[ROLE_ADMIN]"){
-            respond Usuario.findById(springSecurityService.principal.id).deps.toList(), model:[departamentoCount: departamentoService.count()
+            respond Usuario.findById(springSecurityService.principal.id).deps.toList(), model:[depCount: depService.count()
             ]
             return
         }
 
-        respond departamentoService.list(params), model:[departamentoCount: departamentoService.count()]
+        println(depService.list(params))
+        respond depService.list(params), model:[depCount: depService.count()]
     }
 
     def show(Long id) {
 
-        respond departamentoService.get(id)
+        respond depService.get(id)
     }
 
     def create() {
@@ -40,68 +41,68 @@ class DepController {
         respond new Dep(params)
     }
 
-    def save(Dep departamento) {
-        if (departamento == null) {
+    def save(Dep dep) {
+        if (dep == null) {
             notFound()
             return
         }
 
 
 
-        departamento.usuario = Usuario.findById( (long) springSecurityService.principal.id)
+        dep.usuario = Usuario.findById( (long) springSecurityService.principal.id)
 
-        departamento.fecha = new Date()
+        dep.fecha = new Date()
 
 
 
         try {
-            departamentoService.save(departamento)
+            depService.save(dep)
         } catch (ValidationException e) {
-            respond departamento.errors, view:'create'
+            respond dep.errors, view:'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'departamento.label', default: 'Dep'), departamento.nombre])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'dep.label', default: 'Dep'), dep.nombre])
                 redirect action: 'index'
             }
-            '*' { respond departamento, [status: CREATED] }
+            '*' { respond dep, [status: CREATED] }
         }
     }
 
     def edit(Long id) {
 
 
-        respond departamentoService.get(id), model: ['contactoList': contactoService.list()]
+        respond depService.get(id), model: ['contactoList': contactoService.list()]
     }
 
-    def update(Dep departamento) {
-        if (departamento == null) {
+    def update(Dep dep) {
+        if (dep == null) {
             notFound()
             return
         }
 
 
-        departamento.usuario = Usuario.findById( (long) springSecurityService.principal.id)
+        dep.usuario = Usuario.findById( (long) springSecurityService.principal.id)
 
-        departamento.fecha = new Date()
+        dep.fecha = new Date()
 
-        if(departamento.conts.size() != 0){
+        if(dep.conts.size() != 0){
             for(Contacto d in contactoService.list()){
 
-                def book = departamento.conts.find { it.id == d.id }
+                def book = dep.conts.find { it.id == d.id }
 
                 if(book != null)
-                    departamento.removeFromConts(book)
+                    dep.removeFromConts(book)
             }
 
         }
 
         try {
-            departamentoService.save(departamento)
+            depService.save(dep)
         } catch (ValidationException e) {
-            respond departamento.errors, view:'edit'
+            respond dep.errors, view:'edit'
             return
         }
 
@@ -109,16 +110,16 @@ class DepController {
 
         for(String d in deps){
             def departa =  Contacto.findById(Long.parseLong(d))
-            departa.addToDeps(departamento).save(flush: true)
-            departamento.addToConts(departa).save(flush: true)
+            departa.addToDeps(dep).save(flush: true)
+            dep.addToConts(departa).save(flush: true)
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'departamento.label', default: 'Dep'), departamento.nombre])
-                redirect departamento
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'dep.label', default: 'Dep'), dep.nombre])
+                redirect dep
             }
-            '*'{ respond departamento, [status: OK] }
+            '*'{ respond dep, [status: OK] }
         }
     }
 
@@ -128,11 +129,11 @@ class DepController {
             return
         }
 
-        departamentoService.delete(id)
+        depService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'departamento.label', default: 'Dep'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'dep.label', default: 'Dep'), id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -142,7 +143,7 @@ class DepController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'departamento.label', default: 'Dep'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'dep.label', default: 'Dep'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

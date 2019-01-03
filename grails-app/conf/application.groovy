@@ -8,9 +8,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['ROLE_ADMIN']],
-	[pattern: '/index.gsp',      access: ['ROLE_ADMIN']],
+	[pattern: '/dashboard.gsp',      access: ['ROLE_ADMIN']],
     [pattern: '/index',          access: ['ROLE_USER']],
-    [pattern: '/index.gsp',      access: ['ROLE_USER']],
+    [pattern: '/dashboard.gsp',      access: ['ROLE_USER']],
 	[pattern: '/shutdown',       access: ['permitAll']],
 	[pattern: '/assets/**',      access: ['permitAll']],
 	[pattern: '/**/js/**',       access: ['permitAll']],
@@ -33,3 +33,30 @@ grails.gorm.default.mapping = {
 }
 
 grails.plugin.springsecurity.logout.postOnly = false
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'practica12.web.grails.Usuario'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'practica12.web.grails.UsuarioRol'
+grails.plugin.springsecurity.authority.className = 'practica12.web.grails.Rol'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	[pattern: '/',               access: ['permitAll']],
+	[pattern: '/error',          access: ['permitAll']],
+	[pattern: '/index',          access: ['permitAll']],
+	[pattern: '/dashboard.gsp',      access: ['permitAll']],
+	[pattern: '/shutdown',       access: ['permitAll']],
+	[pattern: '/assets/**',      access: ['permitAll']],
+	[pattern: '/**/js/**',       access: ['permitAll']],
+	[pattern: '/**/css/**',      access: ['permitAll']],
+	[pattern: '/**/images/**',   access: ['permitAll']],
+	[pattern: '/**/favicon.ico', access: ['permitAll']]
+]
+
+grails.plugin.springsecurity.filterChain.chainMap = [
+	[pattern: '/assets/**',      filters: 'none'],
+	[pattern: '/**/js/**',       filters: 'none'],
+	[pattern: '/**/css/**',      filters: 'none'],
+	[pattern: '/**/images/**',   filters: 'none'],
+	[pattern: '/**/favicon.ico', filters: 'none'],
+	[pattern: '/**',             filters: 'JOINED_FILTERS']
+]
+

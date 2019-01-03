@@ -13,6 +13,6 @@ interface UsuarioService {
 
     void delete(Serializable id)
 
-    Usuario save(Usuario user)
+    Usuario save(Usuario usuario)
 
 }

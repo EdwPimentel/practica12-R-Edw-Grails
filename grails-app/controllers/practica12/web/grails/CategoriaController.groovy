@@ -38,7 +38,7 @@ class CategoriaController {
 
         categoria.usuario = Usuario.findById( (long) springSecurityService.principal.id)
 
-            categoria.fecha = new Date()
+        categoria.fecha = new Date()
 
 
         try {

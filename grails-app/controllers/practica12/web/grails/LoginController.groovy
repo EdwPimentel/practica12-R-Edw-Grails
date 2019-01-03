@@ -14,6 +14,8 @@ class LoginController extends grails.plugin.springsecurity.LoginController  {
             redirect uri: conf.successHandler.defaultTargetUrl
             return
         }
+        println(usernameParameter: conf.apf.usernameParameter)
+        println(usernameParameter: conf.apf.usernameParameter)
 
 
         String postUrl = request.contextPath + conf.apf.filterProcessesUrl

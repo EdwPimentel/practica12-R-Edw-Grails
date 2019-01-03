@@ -21,7 +21,7 @@
         <form  action="${postUrl ?: '/login/authenticate'}" method="POST"  class="login-form">
             <input name="${usernameParameter ?: 'username'}" id="username" type="text" placeholder="username"/>
             <input name="${passwordParameter ?: 'password'}" id="password" type="password" placeholder="password"/>
-            <button class="btn btn-primary">login</button>
+            <button class="btn btn-primary" type="submit">login</button>
         </form>
     </div>
 </div>

@@ -13,6 +13,6 @@ interface DepService {
 
     void delete(Serializable id)
 
-    Dep save(Dep departamento)
+    Dep save(Dep dep)
 
 }

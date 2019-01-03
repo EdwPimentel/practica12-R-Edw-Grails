@@ -23,7 +23,7 @@ class Usuario implements Serializable {
     boolean passwordExpired
 
     Set<Rol> getAuthorities() {
-        (UsuarioRol.findAllByUser(this) as List<UsuarioRol>)*.role as Set<Rol>
+        (UsuarioRol.findAllByUsuario(this) as List<UsuarioRol>)*.rol as Set<Rol>
     }
 
     static constraints = {

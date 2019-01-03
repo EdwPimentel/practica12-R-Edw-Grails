@@ -9,7 +9,7 @@ class ContactoController {
 
     ContactoService contactoService
     CategoriaService categoriaService
-    DepService departamentoService
+    DepService depService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -28,7 +28,7 @@ class ContactoController {
 
     def create() {
 
-        respond new Contacto(params),model: ['categoriaList': categoriaService.list(),'departamentoList': departamentoService.list()]
+        respond new Contacto(params),model: ['categoriaList': categoriaService.list(),'depList': depService.list()]
     }
 
     def save(Contacto contacto) {
@@ -46,7 +46,7 @@ class ContactoController {
         try {
             contactoService.save(contacto)
         } catch (ValidationException e) {
-            respond contacto.errors, view:'create', model: ['categoriaList': categoriaService.list(),'departamentoList': departamentoService.list()]
+            respond contacto.errors, view:'create', model: ['categoriaList': categoriaService.list(),'depList': depService.list()]
             return
         }
 
@@ -69,7 +69,7 @@ class ContactoController {
     def edit(Long id) {
 
 
-        respond contactoService.get(id), model: ['categoriaList': categoriaService.list(),'departamentoList': departamentoService.list()]
+        respond contactoService.get(id), model: ['categoriaList': categoriaService.list(),'depList': depService.list()]
     }
 
     def update(Contacto contacto) {
@@ -85,12 +85,12 @@ class ContactoController {
         contacto.fecha = new Date()
 
         if(contacto.deps.size() != 0){
-            for(Dep d in departamentoService.list()){
+            for(Dep d in depService.list()){
 
                 def book = contacto.deps.find { it.id == d.id }
 
                 if(book != null)
-                contacto.removeFromDeps(book)
+                    contacto.removeFromDeps(book)
             }
 
         }
@@ -128,7 +128,7 @@ class ContactoController {
         def contacto = Contacto.findById(id)
 
         if(contacto.deps.size() != 0){
-            for(Dep d in departamentoService.list()){
+            for(Dep d in depService.list()){
 
                 def book = contacto.deps.find { it.id == d.id }
 

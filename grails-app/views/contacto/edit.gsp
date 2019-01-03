@@ -83,7 +83,7 @@
                             <label class="col-md-2 col-form-label"><g:message code="categoria.label" /> </label>
                             <div class="col-md-9">
                                 <g:select class="form-control" name='categoria' value="${this.contacto?.categoria.nombre}"
-                                          noSelection="${['null':message(code:'select.label')]}"
+                                          noSelection="${['null':'...']}"
                                           from='${categoriaList}'
                                           optionKey="id" optionValue="nombre" required="required"></g:select>
                             </div>
@@ -102,9 +102,9 @@
                                     </thead>
                                     <tbody>
 
-                                    <g:each in="${departamentoList}">
+                                    <g:each in="${depList}">
                                         <tr>
-                                            <td><g:checkBox name="departamento" value="${it.id}" checked="false" /></td>
+                                            <td><g:checkBox name="dep" value="${it.id}" checked="false" /></td>
                                             <td>${it.nombre}</td>
                                             <td>${it.descripcion}</td>
                                         </tr>

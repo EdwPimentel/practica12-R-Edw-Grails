@@ -214,7 +214,7 @@ class ContactoControllerSpec extends Specification implements ControllerUnitTest
         request.method = 'DELETE'
         controller.delete(2)
 
-        then:"The usuario is redirected to index"
+        then:"The user is redirected to index"
         response.redirectedUrl == '/contacto/index'
         flash.message != null
     }

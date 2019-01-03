@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="layout" content="main" />
-    <g:set var="entityName" value="${message(code: 'departamento.label', default: 'Categoria')}" />
+    <g:set var="entityName" value="${message(code: 'dep.label', default: 'Categoria')}" />
 
 </head>
 <body>
@@ -20,9 +20,9 @@
             <g:if test="${flash.message}">
                 <div role="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.departamento}">
+            <g:hasErrors bean="${this.dep}">
                 <ul class="errors" role="alert">
-                    <g:eachError bean="${this.departamento}" var="error">
+                    <g:eachError bean="${this.dep}" var="error">
                         <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                     </g:eachError>
                 </ul>
@@ -33,21 +33,21 @@
                 </div>
 
                 <div class="card-body">
-                    <g:form resource="${this.departamento}" method="PUT" class="form-horizontal">
-                        <g:hiddenField name="version" value="${this.departamento?.version}" />
+                    <g:form resource="${this.dep}" method="PUT" class="form-horizontal">
+                        <g:hiddenField name="version" value="${this.dep?.version}" />
 
 
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label" for="nombre"><g:message code="nombre.label" /></label>
                             <div class="col-md-9">
-                                <g:textField name="nombre" type="text" class="form-control" value="${this.departamento?.nombre}" required="required"/>
+                                <g:textField name="nombre" type="text" class="form-control" value="${this.dep?.nombre}" required="required"/>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label" for="descripcion"><g:message code="nombre.label" /></label>
                             <div class="col-md-9">
-                                <g:textField name="descripcion" type="text" class="form-control" value="${this.departamento?.descripcion}" required="required"/>
+                                <g:textField name="descripcion" type="text" class="form-control" value="${this.dep?.descripcion}" required="required"/>
                             </div>
                         </div>
 

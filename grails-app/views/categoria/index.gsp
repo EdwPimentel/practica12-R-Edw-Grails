@@ -46,9 +46,11 @@
                                         <g:form action="delete"  method="delete">
                                             <div class="btn-group">
                                                 <a role="button" class="btn btn-success" href="/categoria/show/${it.id}"><i class="cui-info"></i></a>
+                                            <sec:ifAllGranted roles="ROLE_ADMIN">
                                                 <a role="button" class="btn btn-primary" href="/categoria/edit/${it.id}"><i class="cui-pencil"></i></a>
                                                 <input name="id" id="id" value="${it.id}" type="hidden"/>
                                                 <button type="submit" class="btn btn-danger"><i class="cui-circle-x"></i></button>
+                                            </sec:ifAllGranted>
                                             </div>
                                         </g:form>
                                     </td>

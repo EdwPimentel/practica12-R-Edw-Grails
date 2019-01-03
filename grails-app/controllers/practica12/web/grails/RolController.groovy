@@ -1,71 +1,72 @@
 package practica12.web.grails
 
 import grails.validation.ValidationException
+import static org.springframework.http.HttpStatus.*
 
 class RolController {
 
-    RolService roleService
+    RolService rolService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond roleService.list(params), model:[roleCount: roleService.count()]
+        respond rolService.list(params), model:[rolCount: rolService.count()]
     }
 
     def show(Long id) {
-        respond roleService.get(id)
+        respond rolService.get(id)
     }
 
     def create() {
         respond new Rol(params)
     }
 
-    def save(Rol role) {
-        if (role == null) {
+    def save(Rol rol) {
+        if (rol == null) {
             notFound()
             return
         }
 
         try {
-            roleService.save(role)
+            rolService.save(rol)
         } catch (ValidationException e) {
-            respond role.errors, view:'create'
+            respond rol.errors, view:'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'role.label', default: 'Rol'), role.id])
-                redirect role
+                flash.message = message(code: 'default.created.message', args: [message(code: 'rol.label', default: 'Rol'), rol.id])
+                redirect rol
             }
-            '*' { respond role, [status: CREATED] }
+            '*' { respond rol, [status: CREATED] }
         }
     }
 
     def edit(Long id) {
-        respond roleService.get(id)
+        respond rolService.get(id)
     }
 
-    def update(Rol role) {
-        if (role == null) {
+    def update(Rol rol) {
+        if (rol == null) {
             notFound()
             return
         }
 
         try {
-            roleService.save(role)
+            rolService.save(rol)
         } catch (ValidationException e) {
-            respond role.errors, view:'edit'
+            respond rol.errors, view:'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'role.label', default: 'Rol'), role.id])
-                redirect role
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'rol.label', default: 'Rol'), rol.id])
+                redirect rol
             }
-            '*'{ respond role, [status: OK] }
+            '*'{ respond rol, [status: OK] }
         }
     }
 
@@ -75,11 +76,11 @@ class RolController {
             return
         }
 
-        roleService.delete(id)
+        rolService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'role.label', default: 'Rol'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'rol.label', default: 'Rol'), id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -89,7 +90,7 @@ class RolController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'role.label', default: 'Rol'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'rol.label', default: 'Rol'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

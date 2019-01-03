@@ -1,5 +1,5 @@
-import practica12.web.grails.UserPasswordEncoderListener
+import practica12.web.grails.UsuarioPasswordEncoderListener
 // Place your Spring DSL code here
 beans = {
-    userPasswordEncoderListener(UserPasswordEncoderListener)
+    usuarioPasswordEncoderListener(UsuarioPasswordEncoderListener)
 }

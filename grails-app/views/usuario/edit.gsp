@@ -20,9 +20,9 @@
             <g:if test="${flash.message}">
                 <div role="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.user}">
+            <g:hasErrors bean="${this.usuario}">
                 <ul class="errors" role="alert">
-                    <g:eachError bean="${this.user}" var="error">
+                    <g:eachError bean="${this.usuario}" var="error">
                         <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                     </g:eachError>
                 </ul>
@@ -34,19 +34,19 @@
 
                 <div class="card-body">
 
-                    <g:form resource="${this.user}" method="PUT" class="form-horizontal">
-                        <g:hiddenField name="version" value="${this.user?.version}" />
+                    <g:form resource="${this.usuario}" method="PUT" class="form-horizontal">
+                        <g:hiddenField name="version" value="${this.usuario?.version}" />
 
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label"><g:message code="nombre.label" /></label>
                             <div class="col-md-9">
-                                <g:field name="username" type="text" value="${this.user?.username}" class="form-control" required="required"/>
+                                <g:field name="usuarioname" type="text" value="${this.usuario?.usuarioname}" class="form-control" required="required"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label"><g:message code="password.label" /></label>
                             <div class="col-md-9">
-                                <g:field name="password" type="password" value="${this.user?.username}" class="form-control" required="required"/>
+                                <g:field name="password" type="password" value="${this.usuario?.usuarioname}" class="form-control" required="required"/>
                             </div>
                         </div>
 

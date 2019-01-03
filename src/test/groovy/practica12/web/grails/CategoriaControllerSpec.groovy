@@ -214,7 +214,7 @@ class CategoriaControllerSpec extends Specification implements ControllerUnitTes
         request.method = 'DELETE'
         controller.delete(2)
 
-        then:"The usuario is redirected to index"
+        then:"The user is redirected to index"
         response.redirectedUrl == '/categoria/index'
         flash.message != null
     }

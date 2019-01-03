@@ -16,7 +16,7 @@
         <div class="animated fadeIn">
             <div class="col">
                 <g:if test="${flash.message}">
-                    <div role="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
+                    <div rol="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
                 </g:if>
 
                 <div class="card">
@@ -29,7 +29,6 @@
                             <thead>
                             <tr>
                                 <th><g:message code="nombre.label" /></th>
-                                <th><g:message code="role.label" /></th>
                                 <th><g:message code="usuario.label" /></th>
                                 <th><g:message code="fecha.label" /></th>
                                 <th><g:message code="accion.label" /></th>
@@ -37,21 +36,11 @@
                             </thead>
                             <tbody>
 
-                            <g:each in="${userList}">
+                            <g:each in="${usuarioList}">
                                 <tr>
 
                                     <td>${it.username}</td>
 
-                                    <g:each var="cont" in="${userRoleList}">
-
-                                        <g:if test="${cont.user == it}">
-
-                                            <td>${cont.role}</td>
-
-                                        </g:if>
-
-
-                                    </g:each>
 
                                     <g:if test="${it.usuario != null}">
                                         <td>${it.usuario.username}</td>
@@ -64,11 +53,12 @@
                                     <td>
                                         <g:form action="delete"  method="delete">
                                             <div class="btn-group">
-                                                <a role="button" class="btn btn-success" href="/usuario/show/${it.id}"><i class="cui-info"></i></a>
-                                                <a role="button" class="btn btn-primary" href="/usuario/edit/${it.id}"><i class="cui-pencil"></i></a>
+                                                <a rol="button" class="btn btn-success" href="/usuario/show/${it.id}"><i class="cui-info"></i></a>
+                                            <sec:ifAllGranted roles="ROLE_ADMIN">
+                                                <a rol="button" class="btn btn-primary" href="/usuario/edit/${it.id}"><i class="cui-pencil"></i></a>
                                                 <input name="id" id="id" value="${it.id}" type="hidden"/>
                                                 <button type="submit" class="btn btn-danger"><i class="cui-circle-x"></i></button>
-
+                                            </sec:ifAllGranted>
                                             </div>
 
                                         </g:form>
@@ -84,7 +74,7 @@
 
 
                         <div class="pagination">
-                            <g:paginate total="${userCount ?: 0}" />
+                            <g:paginate total="${usuarioCount ?: 0}" />
                         </div>
 
                     </div>

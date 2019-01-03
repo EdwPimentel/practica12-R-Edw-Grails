@@ -16,9 +16,9 @@
             <g:if test="${flash.message}">
                 <div role="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.user}">
+            <g:hasErrors bean="${this.usuario}">
                 <ul role="alert"><a class="close" data-dismiss="alert" href="#">×</a>
-                    <g:eachError bean="${this.user}" var="error">
+                    <g:eachError bean="${this.usuario}" var="error">
                         <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                     </g:eachError>
                 </ul>
@@ -29,12 +29,12 @@
                 </div>
 
                 <div class="card-body">
-                    <g:form resource="${this.user}" method="POST" class="form-horizontal">
+                    <g:form resource="${this.usuario}" method="POST" class="form-horizontal">
 
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="username"><g:message code="username.label"/></label>
+                            <label class="col-md-2 col-form-label" for="usuarioname"><g:message code="usuarioname.label"/></label>
                             <div class="col-md-9">
-                                <g:textField name="username" type="text" class="form-control" required="required"/>
+                                <g:textField name="usuarioname" type="text" class="form-control" required="required"/>
                             </div>
                         </div>
 

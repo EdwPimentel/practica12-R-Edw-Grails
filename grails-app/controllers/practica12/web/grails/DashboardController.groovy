@@ -6,13 +6,13 @@ import grails.plugin.springsecurity.annotation.Secured
 class DashboardController {
 
     CategoriaService categoriaService
-    DepService departamentoService
+    DepService depService
     ContactoService contactoService
 
     def index() {
 
 
-        render(view: "/index",model: ['contactos': contactoService.list(),'categorias': categoriaService.list(), 'departamentos': departamentoService.list()])
+        render(view: "/dashboard",model: ['contactos': contactoService.list(), 'categorias': categoriaService.list(), 'departamentos': depService.list()])
     }
 
 }

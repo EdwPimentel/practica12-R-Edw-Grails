@@ -75,10 +75,12 @@
                             <a class="nav-link" href="${createLink(controller:'categoria', action:'index')}">
                                 <i class="nav-icon icon-puzzle"></i> Index</a>
                         </li>
+                <sec:ifAllGranted roles="ROLE_ADMIN">
                         <li class="nav-item">
                             <a class="nav-link" href="${createLink(controller:'categoria', action:'create')}">
                                 <i class="nav-icon icon-puzzle"></i> Crear</a>
                         </li>
+                    </sec:ifAllGranted>
                     </ul>
                 </li>
 
@@ -90,10 +92,12 @@
                             <a class="nav-link" href="${createLink(controller:'contacto', action:'index')}">
                                 <i class="nav-icon icon-puzzle"></i> Index</a>
                         </li>
+    <sec:ifAllGranted roles="ROLE_ADMIN">
                         <li class="nav-item">
                             <a class="nav-link" href="${createLink(controller:'contacto', action:'create')}">
                                 <i class="nav-icon icon-puzzle"></i> Crear</a>
                         </li>
+    </sec:ifAllGranted>
                     </ul>
                 </li>
 
@@ -105,10 +109,12 @@
                             <a class="nav-link" href="${createLink(controller:'dep', action:'index')}">
                                 <i class="nav-icon icon-puzzle"></i> Index</a>
                         </li>
+                    <sec:ifAllGranted roles="ROLE_ADMIN">
                         <li class="nav-item">
                             <a class="nav-link" href="${createLink(controller:'dep', action:'create')}">
                                 <i class="nav-icon icon-puzzle"></i> Crear</a>
                         </li>
+                     </sec:ifAllGranted>
                     </ul>
                 </li>
 
@@ -123,10 +129,12 @@
                                 <a class="nav-link" href="${createLink(controller:'usuario', action:'index')}">
                                     <i class="nav-icon icon-puzzle"></i> Index</a>
                             </li>
+                    <sec:ifAllGranted roles="ROLE_ADMIN">
                             <li class="nav-item">
                                 <a class="nav-link" href="${createLink(controller:'usuario', action:'create')}">
                                     <i class="nav-icon icon-puzzle"></i> Crear</a>
                             </li>
+                    </sec:ifAllGranted>
                         </ul>
                     </li>
 

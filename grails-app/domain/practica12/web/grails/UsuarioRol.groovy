@@ -12,68 +12,68 @@ class UsuarioRol implements Serializable {
 
 	private static final long serialVersionUID = 1
 
-	Usuario user
-	Rol role
-	//usario role check
+	Usuario usuario
+	Rol rol
+
 	@Override
 	boolean equals(other) {
 		if (other instanceof UsuarioRol) {
-			other.userId == user?.id && other.roleId == role?.id
+			other.usuarioId == usuario?.id && other.rolId == rol?.id
 		}
 	}
 
     @Override
 	int hashCode() {
 	    int hashCode = HashCodeHelper.initHash()
-        if (user) {
-            hashCode = HashCodeHelper.updateHash(hashCode, user.id)
+        if (usuario) {
+            hashCode = HashCodeHelper.updateHash(hashCode, usuario.id)
 		}
-		if (role) {
-		    hashCode = HashCodeHelper.updateHash(hashCode, role.id)
+		if (rol) {
+		    hashCode = HashCodeHelper.updateHash(hashCode, rol.id)
 		}
 		hashCode
 	}
 
-	static UsuarioRol get(long userId, long roleId) {
-		criteriaFor(userId, roleId).get()
+	static UsuarioRol get(long usuarioId, long rolId) {
+		criteriaFor(usuarioId, rolId).get()
 	}
 
-	static boolean exists(long userId, long roleId) {
-		criteriaFor(userId, roleId).count()
+	static boolean exists(long usuarioId, long rolId) {
+		criteriaFor(usuarioId, rolId).count()
 	}
 
-	private static DetachedCriteria criteriaFor(long userId, long roleId) {
+	private static DetachedCriteria criteriaFor(long usuarioId, long rolId) {
 		UsuarioRol.where {
-			user == Usuario.load(userId) &&
-			role == Rol.load(roleId)
+			usuario == Usuario.load(usuarioId) &&
+			rol == Rol.load(rolId)
 		}
 	}
 
-	static UsuarioRol create(Usuario user, Rol role, boolean flush = false) {
-		def instance = new UsuarioRol(user: user, role: role)
+	static UsuarioRol create(Usuario usuario, Rol rol, boolean flush = false) {
+		def instance = new UsuarioRol(usuario: usuario, rol: rol)
 		instance.save(flush: flush)
 		instance
 	}
 
 	static boolean remove(Usuario u, Rol r) {
 		if (u != null && r != null) {
-			UsuarioRol.where { user == u && role == r }.deleteAll()
+			UsuarioRol.where { usuario == u && rol == r }.deleteAll()
 		}
 	}
 
 	static int removeAll(Usuario u) {
-		u == null ? 0 : UsuarioRol.where { user == u }.deleteAll() as int
+		u == null ? 0 : UsuarioRol.where { usuario == u }.deleteAll() as int
 	}
 
 	static int removeAll(Rol r) {
-		r == null ? 0 : UsuarioRol.where { role == r }.deleteAll() as int
+		r == null ? 0 : UsuarioRol.where { rol == r }.deleteAll() as int
 	}
 
 	static constraints = {
-	    user nullable: false
-		role nullable: false, validator: { Rol r, UsuarioRol ur ->
-			if (ur.user?.id) {
-				if (UsuarioRol.exists(ur.user.id, r.id)) {
+	    usuario nullable: false
+		rol nullable: false, validator: { Rol r, UsuarioRol ur ->
+			if (ur.usuario?.id) {
+				if (UsuarioRol.exists(ur.usuario.id, r.id)) {
 				    return ['userRole.exists']
 				}
 			}
@@ -83,6 +83,5 @@ class UsuarioRol implements Serializable {
 	static mapping = {
 		id composite: ['usuario', 'rol']
 		version false
-        user cascade: 'all-delete-orphan'
 	}
 }

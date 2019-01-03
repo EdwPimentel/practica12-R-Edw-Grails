@@ -9,7 +9,7 @@ class Dep {
     static hasMany = [conts: Contacto]
 
     static constraints = {
-       usuario nullable: true
+        usuario nullable: true
         nombre blank: false
         descripcion blank: false
 

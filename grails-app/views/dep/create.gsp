@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'departamento.label', default: 'Dep')}" />
+        <g:set var="entityName" value="${message(code: 'dep.label', default: 'Dep')}" />
     </head>
     <body>
     <div id="content" class="container-fluid">
@@ -25,7 +25,7 @@
                         <h5><g:message code="default.create.label" args="[entityName]" /></h5>
                     </div>
                     <div id="tabl" class="card-body">
-                        <g:form resource="${this.departamento}" method="POST" class="form-horizontal">
+                        <g:form resource="${this.dep}" method="POST" class="form-horizontal">
 
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label" for="nombre"><g:message code="nombre.label" /></label>

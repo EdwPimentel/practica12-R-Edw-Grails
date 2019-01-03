@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'departamento.label', default: 'Dep')}" />
+        <g:set var="entityName" value="${message(code: 'dep.label', default: 'Dep')}" />
     </head>
     <body>
     <div id="content" class="container-fluid">
 
         <sec:ifAllGranted roles="ROLE_ADMIN">
-            <g:link class="btn btn-success create" action="create"><i class="fa fa-plus"></i> <g:message code="departamento.label"  /></g:link>
+            <g:link class="btn btn-success create" action="create"><i class="fa fa-plus"></i> <g:message code="dep.label"  /></g:link>
         </sec:ifAllGranted>
 
 
@@ -22,7 +22,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h5><g:message code="departamento.label" /></h5>
+                            <h5><g:message code="dep.label" /></h5>
                         </div>
                         <div class="card-body">
 
@@ -39,7 +39,7 @@
                                 </thead>
                                 <tbody>
 
-                                <g:each in="${departamentoList}">
+                                <g:each in="${depList}">
                                     <tr>
 
                                         <td>${it.nombre}</td>
@@ -58,10 +58,13 @@
                                         <td>
                                             <g:form action="delete"  method="delete">
                                                 <div class="btn-group">
+
                                                     <a role="button" class="btn btn-success" href="/dep/show/${it.id}"><i class="cui-info"></i></a>
+                                                <sec:ifAllGranted roles="ROLE_ADMIN">
                                                     <a role="button" class="btn btn-primary" href="/dep/edit/${it.id}"><i class="cui-pencil"></i></a>
                                                     <input name="id" id="id" value="${it.id}" type="hidden"/>
                                                     <button type="submit" class="btn btn-danger"><i class="cui-circle-x"></i></button>
+                                                </sec:ifAllGranted>
                                                 </div>
 
                                             </g:form>
@@ -77,7 +80,7 @@
 
 
                             <div class="pagination">
-                                <g:paginate total="${departamentoCount ?: 0}" />
+                                <g:paginate total="${depCount ?: 0}" />
                             </div>
 
                         </div>

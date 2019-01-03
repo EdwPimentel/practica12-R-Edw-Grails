@@ -8,10 +8,11 @@
 <body>
 <div id="content" class="container-fluid">
     <div class="row">
-        <g:if test="${flash.message}">
-            <div role="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
-        </g:if>
+
         <div class="col-lg-6">
+            <g:if test="${flash.message}">
+                <div role="status"><a class="close" data-dismiss="alert" href="#">×</a>${flash.message}</div>
+            </g:if>
             <div class="card">
                 <div class="card-header">
                     <h5><g:message code="contacto.label"/></h5>

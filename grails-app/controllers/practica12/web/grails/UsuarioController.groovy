@@ -7,10 +7,9 @@ import grails.validation.ValidationException
 @Secured(['ROLE_ADMIN'])
 class UsuarioController {
 
-    UsuarioService userService
-    UsuarioRolService userRoleService
-    DepService departamentoService
-    RolService roleService
+    UsuarioService usuarioService
+    UsuarioRolService usuarioRolService
+    DepService depService
 
     SpringSecurityService springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -19,45 +18,45 @@ class UsuarioController {
 
         params.max = Math.min(max ?: 10, 100)
 
-        respond userService.list(params), model:[userCount: userService.count(), userRoleList: userRoleService.list()]
+        respond usuarioService.list(params), model:[usuarioCount: usuarioService.count(), usuarioRolList: usuarioRolService.list()]
     }
 
     def show(Long id) {
 
 
-        respond userService.get(id), model: ['userRoleList': userRoleService.list()]
+        respond usuarioService.get(id), model: ['usuarioRolList': usuarioRolService.list()]
     }
 
     def create() {
 
-        respond new Usuario(params), model: ['departamentoList': departamentoService.list()]
+        respond new Usuario(params), model: ['depList': depService.list()]
     }
 
-    def save(Usuario user) {
+    def save(Usuario usuario) {
 
-        if (user == null) {
+        if (usuario == null) {
             notFound()
             return
         }
 
 
-        user.usuario = Usuario.findById( (long) springSecurityService.principal.id)
+        usuario.usuario = Usuario.findById( (long) springSecurityService.principal.id)
 
-        user.fecha = new Date()
+        usuario.fecha = new Date()
 
 
         try {
-            userService.save(user)
+            usuarioService.save(usuario)
         } catch (ValidationException e) {
-            respond user.errors, view:'create'
+            respond usuario.errors, view:'create'
             return
         }
 
 
         if(!params.list('admin').isEmpty()){
-            def r = new UsuarioRol(user: user,role: Rol.findById(1)).save(flush: true)
+            def r = new UsuarioRol(usuario: usuario,rol: Rol.findById(1)).save(flush: true)
         }else{
-            def r = new UsuarioRol(user: user,role: Rol.findById(2)).save(flush: true)
+            def r = new UsuarioRol(usuario: usuario,rol: Rol.findById(2)).save(flush: true)
 
         }
 
@@ -65,51 +64,51 @@ class UsuarioController {
 
         for(String d in deps){
             def departa =  Dep.findById(Long.parseLong(d))
-            user.addToDeps(departa).save(flush: true)
+            usuario.addToDeps(departa).save(flush: true)
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'usuario.label', default: 'Usuario'), user.id])
-                redirect user
+                flash.message = message(code: 'default.created.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuario.id])
+                redirect usuario
             }
-            '*' { respond user, [status: CREATED] }
+            '*' { respond usuario, [status: CREATED] }
         }
     }
 
     def edit(Long id) {
 
 
-        respond userService.get(id), model: [ 'departamentoList': departamentoService.list()]
+        respond usuarioService.get(id), model: [ 'departamentoList': depService.list()]
     }
 
-    def update(Usuario user) {
+    def update(Usuario usuario) {
 
-        if (user == null) {
+        if (usuario == null) {
             notFound()
             return
         }
 
 
-        user.usuario = Usuario.findById( (long) springSecurityService.principal.id)
+        usuario.usuario = Usuario.findById( (long) springSecurityService.principal.id)
 
-        user.fecha = new Date()
+        usuario.fecha = new Date()
 
-        if(user.deps.size() != 0){
-            for(Dep d in departamentoService.list()){
+        if(usuario.deps.size() != 0){
+            for(Dep d in depService.list()){
 
-                def book = user.deps.find { it.id == d.id }
+                def book = usuario.deps.find { it.id == d.id }
 
                 if(book != null)
-                    user.removeFromDeps(book)
+                    usuario.removeFromDeps(book)
             }
 
         }
 
         try {
-            userService.save(user)
+            usuarioService.save(usuario)
         } catch (ValidationException e) {
-            respond user.errors, view:'edit'
+            respond usuario.errors, view:'edit'
             return
         }
 
@@ -117,15 +116,15 @@ class UsuarioController {
 
         for(String d in deps){
             def departa =  Dep.findById(Long.parseLong(d))
-            user.addToDeps(departa).save(flush: true)
+            usuario.addToDeps(departa).save(flush: true)
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'usuario.label', default: 'Usuario'), user.id])
-                redirect user
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuario.id])
+                redirect usuario
             }
-            '*'{ respond user, [status: OK] }
+            '*'{ respond usuario, [status: OK] }
         }
     }
 
@@ -139,7 +138,7 @@ class UsuarioController {
         Usuario u = Usuario.findById(id)
 
         if(u.deps.size() != 0){
-            for(Dep d in departamentoService.list()){
+            for(Dep d in depService.list()){
 
                 def book = u.deps.find { it.id == d.id }
 
@@ -151,11 +150,11 @@ class UsuarioController {
 
 
 
-        userRoleService.delete(UsuarioRol.findByUser(u))
+        usuarioRolService.delete(UsuarioRol.findByUsuario(u))
 
 
 
-       userService.delete(id)
+        usuarioService.delete(id)
 
         request.withFormat {
             form multipartForm {
