@@ -14,7 +14,7 @@ class UsuarioRol implements Serializable {
 
 	Usuario user
 	Rol role
-
+	//usario role check
 	@Override
 	boolean equals(other) {
 		if (other instanceof UsuarioRol) {

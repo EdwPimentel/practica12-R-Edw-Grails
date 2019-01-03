@@ -23,7 +23,7 @@ class UserPasswordEncoderListener {
     void onPreUpdateEvent(PreUpdateEvent event) {
         encodePasswordForEvent(event)
     }
-
+    //encoder
     private void encodePasswordForEvent(AbstractPersistenceEvent event) {
         if (event.entityObject instanceof Usuario) {
             Usuario u = event.entityObject as Usuario
